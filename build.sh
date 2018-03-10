@@ -3,7 +3,7 @@
 self=$(cd `dirname $0`; pwd)
 export GOPATH=$self
 
-project="dbmonitor"
+project="sample"
 author="yubai@mobike.com"
 gitbranch=`git status | head -n1 | awk '{print $NF}'`
 githash=`git rev-parse HEAD`
@@ -13,11 +13,20 @@ buildstamp=`date '+%Y-%m-%d_%I:%M:%S%p'`
 init() {
   if [ ! -d $self/src/apps/$1 ]
   then
-    cp -r $self/src/apps/main $self/src/apps/$1
+    mkdir -p $self/src/apps/$1
     if [ ! -f $self/src/apps/$1/$1.go ]
     then
-      mv $self/src/apps/$1/main.go $self/src/apps/$1/$1.go
+      cp $self/src/apps/sample/sample.go $self/src/apps/$1/$1.go
     fi
+  fi
+
+  if [ ! -f $self/src/etc/$1.conf ]
+  then
+    cp $self/src/etc/sample.conf $self/src/etc/$1.conf
+  fi
+  if [ ! -f $self/src/etc/$1.log.xml ]
+  then
+    cp $self/src/etc/sample.log.xml $self/src/etc/$1.log.xml
   fi
 }
 
