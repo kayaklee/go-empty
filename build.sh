@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash -x
 
 self=$(cd `dirname $0`; pwd)
 export GOPATH=$self
@@ -32,6 +32,7 @@ init() {
 
 build() {
   go build -o $self/build/bin/$1 -v -i -ldflags "
+    -X common.MY_NAME=$project
     -X common.author=$author
     -X common.githash=$githash
     -X common.buildstamp=$buildstamp" apps/$1
